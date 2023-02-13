@@ -10,7 +10,7 @@ class EquipmentController < ApplicationController
 
   # GET /equipment/1
   def show
-    render json: @equipment
+    render json: @equipment, include: :stats
   end
 
   # POST /equipment
