@@ -1,7 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
+  const [errors, setErrors] = useState(false)
+
+  useEffect(() => {
+    fetchProductions("authorized_user")
+    .then(r => {
+      if(r.ok){
+        r.json().then(user => {
+          SpeechSynthesisUtterance(user)
+        })
+      } else {
+        setUser(null)
+      }
+    })
+  })
+
+  const fetchEquipments = () => {
+    fetch('/equipments') 
+    .then
+  }
+
+  const updateUser = () => console.log() 
+
+  const deleteProduction = (id) => setProductions(current => current.filter)
+
+  co
+
+
   return (
     <div className="App">
       <header className="App-header">
