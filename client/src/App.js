@@ -1,52 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect } from 'react';
+import { Signup } from './Signup.js';
 
 function App() {
-  const [errors, setErrors] = useState(false)
+  const [user, setUser] = useState();
 
   useEffect(() => {
-    fetchProductions("authorized_user")
-    .then(r => {
+    fetch('/')
+    .then((r) => {
       if(r.ok){
         r.json().then(user => {
-          SpeechSynthesisUtterance(user)
-        })
+          setUser(user)
+        });
       } else {
         setUser(null)
       }
-    })
-  })
+    });
+  }, []);
 
-  const fetchEquipments = () => {
-    fetch('/equipments') 
-    .then
-  }
-
-  const updateUser = () => console.log() 
-
-  const deleteProduction = (id) => setProductions(current => current.filter)
-
-  co
-
+  console.log(user)
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router> 
+      <Routes>
+        <Route exact path = "/" element={<Home user={user} setUser={setUser} />} /> 
+        <Route path = "/About" element={<About user={user} setUser={setUser} />} />
+        <Route path = "/Equipment" element={<Equipment user={user} setUser={setUser} />} />
+        <Route path = "/Login" element={<Login user={user} setUser={setUser} />} />
+        {/* <Route path = "/Profile" element={<Profile user={user} setUser={setUser} />} />  */}
+      </Routes>
+    </Router>
   );
 }
 

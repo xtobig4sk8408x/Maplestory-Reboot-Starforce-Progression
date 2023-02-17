@@ -8,7 +8,19 @@
 
 User.create()
 
-mage = Job.create(job: "Kinesis" base_job: "Magician")
+
+
+kinesis = Job.create(job: "Kinesis", base_job: "Magician", origin: "Korea")
+shade = Job.create(job: "Shade", base_job: "Pirate", origin: "N/A")
+mercedes = Job.create(job: "Mercedes", base_job: "Bowman", origin: "Elluel")
+evan = Job.create(job: "Evan", base_job: "Magician", origin: "Henesys")
+aran = Job.create(job: "Aran", base_job: "Warrior", origin: "Rien")
+phantom = Job.create(job: "Phantom", base_job: "Thief", origin: "Ariant")
+illium = Job.create(job: "illium", base_job: "Magician", origin: "Sanctuary")
+luminous = Job.create(job: "luminous", base_job: "Magician", origin: "Harmony")
+
+
+
 
 Equipment.create([
     pms0 = {name: "Pensalir Mage Sallet(0)", job: "Magician"},
@@ -23,16 +35,20 @@ Equipment.create([
     pms9 = {name: "Pensalir Mage Sallet(9)", job: "Magician"},
     pms10 = {name: "Pensalir Mage Sallet(10)", job: "Magician"},
     pms11 = {name: "Pensalir Mage Sallet(11)", job: "Magician"},
-    {
-        name: "Pensalir Mage Sallet(12)",
-        job: "Magician",
-            stats: [
-                {
-                    
-                }
-            ]
-    }
-
+    pms12 = {name: "Pensalir Mage Sallet(12)", job: "Magician"},
+    pms13 = {name: "Pensalir Mage Sallet(13)", job: "Magician"},
+    pms14 = {name: "Pensalir Mage Sallet(14)", job: "Magician"},
+    pms15 = {name: "Pensalir Mage Sallet(15)", job: "Magician"},
+    pms16 = {name: "Pensalir Mage Sallet(16)", job: "Magician"},
+    pms17 = {name: "Pensalir Mage Sallet(17)", job: "Magician"},
+    pms18 = {name: "Pensalir Mage Sallet(18)", job: "Magician"},
+    pms19 = {name: "Pensalir Mage Sallet(19)", job: "Magician"},
+    pms20 = {name: "Pensalir Mage Sallet(20)", job: "Magician"},
+    pms21 = {name: "Pensalir Mage Sallet(21)", job: "Magician"},
+    pms22 = {name: "Pensalir Mage Sallet(22)", job: "Magician"},
+    pms23 = {name: "Pensalir Mage Sallet(23)", job: "Magician"},
+    pms24 = {name: "Pensalir Mage Sallet(24)", job: "Magician"},
+    pms25 = {name: "Pensalir Mage Sallet(25)", job: "Magician"},
 ])
 
 Stats.create(
@@ -61,6 +77,9 @@ Stats.create(
     {equipment_id: pms22.id, str: nil, dex: nil, int: 119, luk: 118, hp: 405, mp: 150, def: (base_def + (base_def * 1.15)).to_f, spd: nil, jump: nil, atk: 75, matk: 75},
     {equipment_id: pms23.id, str: nil, dex: nil, int: 119, luk: 118, hp: 405, mp: 150, def: (base_def + (base_def * 1.2)).to_f, spd: nil, jump: nil, atk: 92, matk: 92},
     {equipment_id: pms24.id, str: nil, dex: nil, int: 119, luk: 118, hp: 405, mp: 150, def: (base_def + (base_def * 1.25)).to_f, spd: nil, jump: nil, atk: 111, matk: 111},
-    {equipment_id: pms25.id, str: nil, dex: nil, int: 119, luk: 118, hp: 405, mp: 150, def: (base_def + (base_def * 1.3)).to_f, spd: nil, jump: nil, atk: 132, matk: 132},
-    
+    {equipment_id: pms25.id, str: nil, dex: nil, int: 119, luk: 118, hp: 405, mp: 150, def: (base_def + (base_def * 1.3)).to_f, spd: nil, jump: nil, atk: 132, matk: 132},   
 )
+
+EquipmentReview.create(equipment_id: pms0.id, description: 'Decent gear until you get your absolab/CRA gear.')
+
+JobReview.create(job_id: kinesis.id, description: 'Fun class to play! Good mobility! Haha rubix cubes and rubble go brrrr')
