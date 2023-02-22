@@ -7,42 +7,34 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
+    user = find_user
+    render json: user, status: :ok
+  end
+
+  def index
+    users = User.all
+    render json: users, status: :ok
+  end
+
+  def update
+    user = find_user
+    user.update(user_params)
     render json: user
   end
 
-  # GET /users
-  def index
-    @users = User.all
-
-    render json: @users
-  end
-
-  
-  
-
-  # PATCH/PUT /users/1
-  def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /users/1
   def destroy
-    @user.destroy
+    user = find_user
+    user.destroy
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
+    
+    def find_user
+      User.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:name, :email, :password, :first_name, :last_name, :username)
     end
 end

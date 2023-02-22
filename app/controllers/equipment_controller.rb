@@ -1,51 +1,39 @@
 class EquipmentController < ApplicationController
-  before_action :set_equipment, only: [:show, :update, :destroy]
 
-  # GET /equipment
   def index
-    @equipment = Equipment.all
-
-    render json: @equipment
+    render json: Equipment.all, status: :ok
   end
 
-  # GET /equipment/1
   def show
-    render json: @equipment, include: :stats
+    equipment = find_equip
+    render json: equipment, include: :stats, status: :ok
   end
 
-  # POST /equipment
   def create
-    @equipment = Equipment.new(equipment_params)
-
-    if @equipment.save
-      render json: @equipment, status: :created, location: @equipment
-    else
-      render json: @equipment.errors, status: :unprocessable_entity
-    end
+    equipment = Equipment.create!(equip_params)
+    render json: equipment, status: :created
   end
 
-  # PATCH/PUT /equipment/1
   def update
-    if @equipment.update(equipment_params)
-      render json: @equipment
-    else
-      render json: @equipment.errors, status: :unprocessable_entity
-    end
+    equipment = find_equip
+    equipment.update!(equip_params)
+    render json: equipment, status: :accepted
   end
 
-  # DELETE /equipment/1
   def destroy
-    @equipment.destroy
+    equipment = find_equip
+    equipment.destroy
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_equipment
-      @equipment = Equipment.find(params[:id])
+ 
+    def find_equip
+      equipment = Equipment.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
-    def equipment_params
+    def equip_params
       params.require(:equipment).permit(:name, :job)
     end
 end

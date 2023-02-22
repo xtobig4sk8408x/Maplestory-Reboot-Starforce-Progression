@@ -1,8 +1,28 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function Home({user, currentUser}) {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState();
+    const [loading, setLoading] = useState(true);
+    const [errors, setErrors] = useState(false);
+
+    const params = useParams();
+    const {id} = params;
+    useEffect(() => {
+        fetch(`/users/${id}`)
+        .then(r => {
+            if(r.ok){
+                r.json()
+                .then(user => {
+                    setUser(user) 
+                    setLoading(false)
+                })
+            } else {
+                r.json()
+                .then(data => setErrors(data.error));
+            }
+        });
+    });
 
     useEffect(() => {
         fetch ("/user") 
@@ -10,27 +30,17 @@ function Home({user, currentUser}) {
         .then (setUser => user);
     }, []); 
 
-//     function handleDelete(id) { 
-//         fetch(`/equipment/${id}`, {
-//             method: "DELETE",
-//     }).then((r) => {
-//         if (r.ok) { 
-//             setEquipment((equipment) => 
-//             equipment.filter((equip) => equip.id !== id)
-//             );
-//         }
-//     }); 
-// }   
-
+    if(loading) return <h1>Loading...</h1>
+    if(errors) return <h1>{errors}</h1>
     return ( 
         <>
         if (currentUser == user) {
-            <Header>Hello, ${currentUser.user}</Header>
-            <h1>Don't forget to do your dailies!</h1>
-            <h1>Don't</h1>
+            <div>
+                <Header>Hello, ${currentUser.user}</Header>
+                <h1>Don't forget to do your dailies!</h1>
+                <h1>Current ursus time is 10:00 PM - 2:00 PM & 5:00PM - 9:00 PM PST</h1>
+            </div>
         }
-        
-
         </>
     )
 }

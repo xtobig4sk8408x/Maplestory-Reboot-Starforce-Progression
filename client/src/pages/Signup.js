@@ -1,68 +1,69 @@
-import { useState } from 'react'; 
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Form } from '../styled/Form'; 
+
 
 function Signup() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); 
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [isLoading, setIsLoading] = useState(false); 
-    const [errors, setErrors] = useState('');
+    
+    cconst [formData, setFormData] = useState({
+        first_name:'',
+        last_name:'', 
+        username:'',
+        email:'',
+        password:''
+    })
+    const [errors, setErrors] = useState([]);
+    const history = useHistory();
 
-    const handleSubmit = (e) => {
+    const {first_name, last_name, username, email, password} = formData;
+
+    function onSubmit(e) {
         e.preventDefault();
-        setErrors([]);
-        setIsLoading(true);
-
-        fetch('/signup', {
-            method: 'POST', 
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-        body: JSON.stringify({ 
-            first_name: firstName, 
-            last_name: lastName, 
-            email,  
-            password, 
-            password_confirmation: passwordConfirmation
-         }),
-        })
-        .then(r => {
-            setIsLoading(false);
-            if (r.ok) {
-                r.json*()
-                .then((data) => {
-                    if (data.error){
-                        console.log(data);
-                        
-                    }
-                })
-            }
+        const user = { 
+            first_name, 
+            last_name, 
+            username,
+            email, 
+            password
         }
+
+        fetch(`/users`, {
+            method: 'POST',
+            HEADERS:{'Content-Type': 'application/json'},
+            body:JSON.stringify(user)
+        })
+        .then(r => { 
+            if(r.ok){
+                r.json().then(user => {
+                    history.push(`users/${user.id}`);
+                });
+            } else { 
+                r.json().then(json => setErrors(Object.entries(json.errors)));
+            }
+        });
     }
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <label> 
-                First Name: 
-                <input type="text" value={firstName} onChange={(e) => setName{e.target.value}} /> 
-            </label>
-            <label> 
-                Last Name: 
-                <input type="text" value={lastName} onChange={(e) => setName{e.target.value}} />
-            </label>
-            <label> 
-                Email: 
-                <input type="email" value={email} onChange={(e) => setEmail{e.target.value}} />
-            </label>
-            <label> 
-                Password: 
-                <input type="password" value={password} onChange={(e) => setPassword{e.target.value}} />
-            </label>
-            <button type="submit">Create User</button>
-        </form> 
+    const handleChange = (e) => {
+        const { username, value } = e.target;
+        setFormData({ ...formData, [username]: value });
+    }
+
+    return ( 
+        <>
+        <Form onSubmit={onSubmit}>
+            <label>First Name</label>
+            <input type='text' name='first name' value={first_name} onChange={handleChange} />
+            <label>Last Name</label>
+            <input type='text' name='last name' value={last_name} onChange={handleChange} />
+            <label>Username</label>
+            <input type='text' name='username' value={username} onChange={handleChange} />
+            <label>Email</label>
+            <input type='text' name='email' value={email} onChange={handleChange} />
+            <label>Password</label>
+            <input type='text' name='password' value={password} onChange={handleChange} />
+        </Form>
+        {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
+        </>
     )
 }
-export default Signup
-            
-            
+export default Signup;

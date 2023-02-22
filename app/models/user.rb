@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     has_secure_password 
+    has_many :equipment_reviews
+    has_many :equipment, through: :equipment_reviews
     validates :email, presence: true 
     validates :first_name, presence: true 
     validates :last_name, presence: true 
