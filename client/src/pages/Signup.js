@@ -19,22 +19,16 @@ function Signup() {
 
     function onSubmit(e) {
         e.preventDefault();
-        const user = { 
-            first_name, 
-            last_name, 
-            username,
-            email, 
-            password
-        }
 
         fetch(`/users`, {
             method: 'POST',
-            HEADERS:{'Content-Type': 'application/json'},
-            body:JSON.stringify(user)
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(formData)
         })
         .then(r => { 
-            if(r.ok){
+            if(r.status === 201){
                 r.json().then(user => {
+                    updateUser(user);
                     history.push(`users/${user.id}`);
                 });
             } else { 

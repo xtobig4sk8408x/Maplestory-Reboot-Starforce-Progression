@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_17_092436) do
+ActiveRecord::Schema.define(version: 2023_02_18_071505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,12 +47,18 @@ ActiveRecord::Schema.define(version: 2023_02_17_092436) do
   end
 
   create_table "stats", force: :cascade do |t|
+    t.bigint "equipment_id", null: false
+    t.integer "str"
+    t.integer "dex"
     t.integer "int"
     t.integer "luk"
     t.integer "hp"
     t.integer "mp"
-    t.integer "def"
-    t.bigint "equipment_id"
+    t.float "def"
+    t.integer "spd"
+    t.integer "jump"
+    t.integer "atk"
+    t.integer "matk"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["equipment_id"], name: "index_stats_on_equipment_id"
@@ -68,4 +74,5 @@ ActiveRecord::Schema.define(version: 2023_02_17_092436) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "stats", "equipment"
 end

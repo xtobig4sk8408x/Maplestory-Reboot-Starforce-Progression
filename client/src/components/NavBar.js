@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState}  from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {GiHamburgerMenu} from 'react-icons/gi';
+// import {GiHamburgerMenu} from 'react-icons/gi';
 
-function NavBar() {
+function NavBar({updateUser}) {
     const [menu, setMenu] = useState(false);
     const history = useHistory();
 
@@ -19,13 +19,13 @@ function NavBar() {
     }
 
     return (
-        <Nav> 
-         <NavH1>Flatiron Theater Company</NavH1>
+        <nav> 
+         <h1>Flatiron Theater Company</h1>
          <menu>
            <button onClick={handleLogOut}>Log Out</button>
            {!menu?
            <div onClick={() => setMenu(!menu)}>
-             <GiHamburgerMenu size={30}/> 
+            saa
            </div>:
            <ul>
             <li onClick={() => setMenu(!menu)}>x</li>
@@ -38,7 +38,7 @@ function NavBar() {
            }
          </menu>
 
-        </Nav>
+        </nav>
     )
 }
 export default NavBar;

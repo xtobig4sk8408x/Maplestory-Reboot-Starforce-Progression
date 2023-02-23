@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 //import { Signup } from './Signup';
 import Comparison from './pages/Comparison';
 import NavBar from './components/NavBar';
+import Login from './pages/Login';
 
 function App() {
   const [user, setUser] = useState();
@@ -22,12 +23,16 @@ function App() {
     });
   }, []);
 
+  function updateUser(userData) {
+    setUser(userData);
+  }
   console.log(user)
 
   return (
     <div className="App">
       <p>text in there</p>
-      {/* <Login /> */}
+      
+      <Login updateUser={updateUser}/> 
       {/* <NavBar jokes={jokes} setJokes={setJokes} API={API} /> */}
       <Switch>
         <Route exact path="/comparison">

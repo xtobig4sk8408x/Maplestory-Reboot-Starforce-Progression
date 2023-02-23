@@ -3,18 +3,33 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 function EquipmentDetail({user, deleteProduction}) {
+    const [user, setUser] = useState(null);
     const [equipment, setEquipment] = useState({})
     const [loading, setLoading] = useState(true);
     const [errors, setErrors] = useState(false);
 
     const params = useParams();
     const history = useHistory();
+
+    useEffect(() => {
+        fetch('/authorized_user')
+        .then(r => {
+            if(r.ok) { 
+                r.json().then(user => { 
+                    setUser(user);
+                });
+            } else {
+                r.json().then((errorObj => alert(errorObj.errors)));
+            }
+        });
+    },[]);
+
     useEffect(() => {
         fetch(`/equipments/${params.id}`)
         .then (r => {
             if(r.ok) { 
                 r.json().then(data => {
-                    setProduction(data);
+                    setEquipment(data);
                     setLoading(false);
                 })
             } else { 
@@ -24,29 +39,24 @@ function EquipmentDetail({user, deleteProduction}) {
         });
     }, []);
 
-    function handleDelete() {
-        fetch(`/equipments/${params.id}`, {
-            method: 'DELETE', 
-            headers: {'Content-Type': 'application/json'}
-        });
-        .then(r => {
-            if(r.ok){
-                deleteProduction(id)
-                history.push('/');
-            } else {
-                r.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)));
-            }
-        });
+    if (user === authorized_user) {
+        function handleDelete() {
+            fetch(`/equipments/${params.id}`, {
+                method: 'DELETE', 
+                headers: {'Content-Type': 'application/json'}
+            });
+            .then(r => {
+                if(r.ok){
+                    deleteProduction(id)
+                    history.push('/');
+                } else {
+                    r.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)));
+                }
+            });
+        }
     }
 
-    function handleDelete() { 
-        fetch(`/equipments/${params.id}`, {
-            method: 'DELEETE', 
-            headers: {'Content-Type': 'application/json'}
-        });
-    }
-
-    if (user === admin) {
+    if (user === authorized_user) {
         const handleCreate = () => {
             fetch(`/equipments`, {
                 method: 'POST', 
@@ -61,6 +71,10 @@ function EquipmentDetail({user, deleteProduction}) {
                 }
             });
         }
+    }
+
+    if (user === authorized_user) {
+        
     }
 
     if(loading) return <h1>Loading...</h1>

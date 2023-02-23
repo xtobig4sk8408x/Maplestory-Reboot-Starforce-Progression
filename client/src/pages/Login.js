@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {Form} from '../styled/Form';
+
 
 function Login({updateUser}) { 
     const [formData, setFormData] = useState({
-        username: '', 
+        email: '', 
         password: ''
     })
     const [errors, setErrors] = useState([]);
     const history = useHistory();
-    const {username, password} = formData;
+    const {email, password} = formData;
     
     function onSubmit(e){ 
         e.preventDefault();
         const user = { 
-            username, 
+            email, 
             password
         }
          fetch(`/login`, {
@@ -25,7 +25,7 @@ function Login({updateUser}) {
          .then(r => {
             if(r.ok) {
                 r.json().then(user => {
-                    updatedUser(user);
+                    updateUser(user);
                     history.push(`/users/${user.id}`);
                 })
             } else {
@@ -35,19 +35,19 @@ function Login({updateUser}) {
     }
 
     const handleChange = (e) => {
-        const { username, value } = e.target
-        setFormData({ ...formData, [username]: value });
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value });
     }
 
     return ( 
         <>
-        <Form onSubmit={onSubmit}>
-            <label>Username</label>
-            <input type='text' name='username' value={username} onChange={handleChange} />
+        <form onSubmit={onSubmit}>
+            <label>E-mail</label>
+            <input type='text' name='email' value={formData.email} onChange={handleChange} />
             <label>Password</label>
-            <input type='password'name='password' value={password} onChange={handleChange} />
+            <input type='password'name='password' value={formData.password} onChange={handleChange} />
             <input type='submit' value='Log in!' />
-        </Form>
+        </form>
         {errors? <div>{errors}</div>:null}
         </>
     )
