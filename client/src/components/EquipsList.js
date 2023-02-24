@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function EquipsList({name, job, str, dex, int, luk, hp, mp, def, spd, jump, atk, matk}) { 
+function EquipsList() { 
   const [equipment, setEquipment] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState(false)
@@ -24,19 +24,20 @@ console.log();
     <>
     {equipment.map((item) => (
       <div>
-        <h2>{item.name}</h2>
-        <p>{item.job}</p>
-        <p>{item.str}</p>
-        <p>{item.dex}</p>
-        <p>{item.int}</p>
-        <p>{item.luk}</p>
-        <p>{item.hp}</p>
-        <p>{item.mp}</p>
-        <p>{item.def}</p>
-        <p>{item.spd}</p>
-        <p>{item.jump}</p>
-        <p>{item.atk}</p>
-        <p>{item.matk}</p>
+        <img src={item.image} alt="pensalir mage sallet maplestory" />
+        <h2>Name: {item.name}</h2>
+        <p>Job: {item.job}</p>
+        <p>Strength: {item.str}</p>
+        <p>Dexterity: {item.dex}</p>
+        <p>Intelligence: {item.int}</p>
+        <p>Luck: {item.luk}</p>
+        <p>HP: {item.hp}</p>
+        <p>MP: {item.mp}</p>
+        <p>Defense: {item.def}</p>
+        <p>Speed: {item.spd}</p>
+        <p>Jump: {item.jump}</p>
+        <p>Attack: {item.atk}</p>
+        <p>Magic Attack: {item.matk}</p>
       </div>
     ))}
     </>

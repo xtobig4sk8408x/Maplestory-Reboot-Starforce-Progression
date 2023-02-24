@@ -1,10 +1,7 @@
 class SessionsController < ApplicationController
-    # skip_before_action :authorized_user, only: [:login]
+    skip_before_action :authorized_user, only: [:login]
     
-    # def show 
-    #     user = find_id
-    #     render json: user 
-    # end
+
 
     def login
         user = find_id

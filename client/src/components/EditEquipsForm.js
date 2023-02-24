@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Form } from '../styled/Form';
 
-function EditEquipmentForm({updateEquipment}) {
+function EditEquipsForm() {
     const [formData, setFormData] = useState({
         name: '',
         job: '',
@@ -17,12 +17,14 @@ function EditEquipmentForm({updateEquipment}) {
         spd: '', 
         jump: '', 
         atk: '', 
-        matk: ''
+        matk: '',
+        image: ''
     });
     const [errors, setErrors] = useState([]);
     const {id} = useParams();
+    
     useEffect(() => {
-        fetch(`/equipments/${id}`)
+        fetch(`/equips/${id}`)
         .then(r => r.json()).then(setFormData)
     },[])
 

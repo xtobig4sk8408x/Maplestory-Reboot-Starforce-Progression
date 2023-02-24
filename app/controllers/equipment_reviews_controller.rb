@@ -3,5 +3,4 @@ class EquipmentReviewsController < ApplicationController
         reviews = EquipmentReview.all
         render json: reviews, status: :ok
     end
-
 end
