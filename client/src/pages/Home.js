@@ -25,7 +25,7 @@ function Home({user, currentUser}) {
     });
 
     useEffect(() => {
-        fetch ("/user") 
+        fetch ("/users") 
         .then (r => r.json())
         .then (setUser => user);
     }, []); 

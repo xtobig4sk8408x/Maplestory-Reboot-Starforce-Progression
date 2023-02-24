@@ -10,52 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_17_092436) do
+ActiveRecord::Schema.define(version: 2023_02_24_062243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "equipment", force: :cascade do |t|
-    t.string "name"
-    t.string "job"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "equipment_reviews", force: :cascade do |t|
     t.bigint "equipment_id"
+    t.bigint "user_id"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["equipment_id"], name: "index_equipment_reviews_on_equipment_id"
+    t.index ["user_id"], name: "index_equipment_reviews_on_user_id"
   end
 
-  create_table "job_reviews", force: :cascade do |t|
-    t.string "description"
-    t.bigint "job_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["job_id"], name: "index_job_reviews_on_job_id"
-  end
-
-  create_table "jobs", force: :cascade do |t|
+  create_table "equips", force: :cascade do |t|
+    t.string "name"
     t.string "job"
-    t.string "base_job"
-    t.string "origin"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "stats", force: :cascade do |t|
+    t.integer "str"
+    t.integer "dex"
     t.integer "int"
     t.integer "luk"
     t.integer "hp"
     t.integer "mp"
-    t.integer "def"
-    t.bigint "equipment_id"
+    t.float "def"
+    t.integer "spd"
+    t.integer "jump"
+    t.integer "atk"
+    t.integer "matk"
+    t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["equipment_id"], name: "index_stats_on_equipment_id"
   end
 
   create_table "users", force: :cascade do |t|

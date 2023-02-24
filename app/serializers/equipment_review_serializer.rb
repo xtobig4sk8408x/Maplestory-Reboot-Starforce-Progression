@@ -1,3 +1,3 @@
 class EquipmentReviewSerializer < ActiveModel::Serializer
-  attributes :id, :description
+  attributes :description
 end

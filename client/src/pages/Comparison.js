@@ -1,5 +1,5 @@
 import { React } from 'react';
-import EquipmentCard from '../components/EquipmentCard';
+import EquipmentCard from './EquipmentList';
 
 const kinesis = {
   job: "Kinesis", 

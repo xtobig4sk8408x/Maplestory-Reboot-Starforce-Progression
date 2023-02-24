@@ -1,51 +1,60 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-//import { Signup } from './Signup';
-import Comparison from './pages/Comparison';
+import Signup from './pages/Signup';
 import NavBar from './components/NavBar';
+import Login from './pages/Login';
+import EquipmentList from './pages/EquipmentList';
+import EquipmentDetail from './pages/EquipmentDetail'
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [search, setSearch] = useState("")
 
-  useEffect(() => {
-    fetch('/comparison')
-    .then((r) => {
-      if(r.ok){
-        r.json().then(user => {
-          setUser(user)
-        });
-      } else {
-        setUser(null)
-      }
-    });
-  }, []);
+  //Taking this out because I don't think progression in reboot should cost something
+//   useEffect(() => {
+//     fetch('/authorized_user')
+//     .then(r => {
+//         if(r.ok) { 
+//             r.json().then(user => { 
+//                 setUser(user);
+//             });
+//         } else {
+//             r.json().then((errorObj => alert(errorObj.errors)));
+//         }
+//     });
+// },[]);
 
+
+
+  function updateUser(userData) {
+    setUser(userData);
+  }
   console.log(user)
 
   return (
     <div className="App">
-      <p>text in there</p>
-      {/* <Login /> */}
-      {/* <NavBar jokes={jokes} setJokes={setJokes} API={API} /> */}
+      <p>If you can see this, don't look outside your window.</p>
+      <NavBar />
       <Switch>
-        <Route exact path="/comparison">
-          {/* <JokesForm jokes={jokes} setJokes={setJokes} API={API}/> */}
+        <Route exact path='/signup'>
+          <Signup />
         </Route>
-        <Route exact path="/comparison/:id">
-          {/* <SingleJoke API={API} setJokes={setJokes} handleTrash={handleTrash} equips={equips}/> */}
+      <Route exact path="/login">
+        <Login updateUser={updateUser}/> 
         </Route>
-        <Route exact path="/">
-          {/* <Search search={search} setSearch={setSearch}/> }
-          {/* <JokesList jokes={jokes} API={API} handleTrash={handleTrash} /> */}
+        <Route exact path ='/logout' />
+        <Route exact path="/equips"component={EquipmentList}>
+          <EquipmentList user={user}   /> 
         </Route>
-        {/* <Route>
-          <ErrorPage />
-        </Route> */}
-        <Route>
-          {/* <Login /> */}
+        <Route exact path="/equips/:id">
+          <EquipmentDetail user={user} />
         </Route>
+        
+        <Route exact path="/signup"> 
+          <Signup updateUser={updateUser}/>
+        </Route>
+
       </Switch>
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
