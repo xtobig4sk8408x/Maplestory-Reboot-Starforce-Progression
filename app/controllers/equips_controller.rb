@@ -1,34 +1,35 @@
 class EquipsController < ApplicationController
     def index
-        render json: Equipment.all, status: :ok
+        equips = Equip.all
+        render json: equips, status: :ok
     end
     
     def show
-        equipment = find_equip
-        render json: equipment, include: :stats, status: :ok
+        equip = find_equip
+        render json: equip, include: :stats, status: :ok
     end
     
     def create
-        equipment = Equipment.create!(equip_params)
-        render json: equipment, status: :created
+        equip = Equipment.create!(equip_params)
+        render json: equip, status: :created
     end
     
     def update
-        equipment = find_equip
-        equipment.update!(equip_params)
-        render json: equipment, status: :accepted
+        equip = find_equip
+        equip.update!(equip_params)
+        render json: equip, status: :accepted
     end
     
     def destroy
-        equipment = find_equip
-        equipment.destroy
+        equip = find_equip
+        equip.destroy
         head :no_content
     end
     
     private
      
     def find_equip
-        equipment = Equipment.find(params[:id])
+        Equip.find(params[:id])
     end
     
     # Only allow a list of trusted parameters through.

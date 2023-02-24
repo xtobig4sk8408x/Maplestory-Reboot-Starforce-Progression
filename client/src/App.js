@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Signup from './pages/Signup';
 import NavBar from './components/NavBar';
 import Login from './pages/Login';
-import EquipmentList from './pages/EquipmentList';
+import EquipsList from './pages/EquipsList';
 import EquipmentDetail from './pages/EquipmentDetail'
 
 function App() {
@@ -28,13 +28,12 @@ function App() {
 
 
   function updateUser(userData) {
+    console.log(userData);
     setUser(userData);
   }
-  console.log(user)
 
   return (
     <div className="App">
-      <p>If you can see this, don't look outside your window.</p>
       <NavBar />
       <Switch>
         <Route exact path='/signup'>
@@ -44,8 +43,8 @@ function App() {
         <Login updateUser={updateUser}/> 
         </Route>
         <Route exact path ='/logout' />
-        <Route exact path="/equips"component={EquipmentList}>
-          <EquipmentList user={user}   /> 
+        <Route exact path="/equips">
+          <EquipsList user={user}   /> 
         </Route>
         <Route exact path="/equips/:id">
           <EquipmentDetail user={user} />

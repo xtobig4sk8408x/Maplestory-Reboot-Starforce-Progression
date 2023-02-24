@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function EquipmentList({name, job, str, dex, int, luk, hp, mp, def, spd, jump, atk, matk}) { 
+function EquipsList({name, job, str, dex, int, luk, hp, mp, def, spd, jump, atk, matk}) { 
   const [equipment, setEquipment] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState(false)
@@ -43,29 +43,4 @@ console.log();
   )
 }
 
-export default EquipmentList;
-
-// const Card = styled.li`
-// display: flex;
-// flex-direction: row;
-// justify-content: start;
-// font-family: Arial, sans-serif;
-// margin: 10px;
-// &:hover {
-//   transform: scale(1.15);
-//   transform-origin: top left;
-// }
-// a{
-//   text-decoration: none;
-//   color: white;
-// }
-// img{
-//   width: 180px;
-//   margin-left: 20%;
-//   mask-image: linear-gradient(to left, rgba(0, 0, 0, .9) 80%, transparent 100%);
-// }
-// position: relative;
-// div{
-//   position: absolute;
-// }
-// `
+export default EquipsList;
